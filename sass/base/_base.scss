@@ -1,0 +1,25 @@
+@import "../abstracts/variables";
+
+%default-template {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+* {
+  &::after {
+    @extend %default-template
+  }
+
+  &::before {
+    @extend %default-template
+  }
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+}
