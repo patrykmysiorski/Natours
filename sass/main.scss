@@ -3,13 +3,22 @@ $color-primary-light: #7ed56f;
 $color-primary-dark: #28b485;
 $color-grey-dark: #777;
 $color-white: #fff;
+$color-black: #000;
 
-*,
-*::after,
-*::before {
+%default-template {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+}
+
+* {
+  &::after {
+    @extend %default-template
+  }
+
+  &::before {
+    @extend %default-template
+  }
 }
 
 html {
@@ -34,33 +43,29 @@ body {
                   rgba($color-primary-dark, 0.8)),
   url("../img/hero.jpg");
   background-size: cover;
-  /*always try so fill whe whole space*/
+  /*always try to fill the whole space*/
   background-position: top;
   /*    top of image is always on top when you shrink view port*/
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   position: relative;
-}
 
-.header__logo-box {
-  position: absolute;
-  top: 4rem;
-  left: 4rem;
-}
+  &__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
 
-.header__logo {
-  height: 3.5rem;
-}
+  &__logo {
+    height: 3.5rem;
+  }
 
-.header__logo:hover {
-  animation: rotateAround 1s;
-}
-
-.header__text-box {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
 }
 
 .heading-primary {
@@ -69,27 +74,27 @@ body {
   backface-visibility: hidden;
   /*    for shakes in animation - probably not happen for me*/
   margin-bottom: 6rem;
-}
 
-.heading-primary--main {
-  display: block;
-  font-size: 6rem;
-  font-weight: 400;
-  letter-spacing: 3.5rem;
-  animation-name: moveInLeft;
-  animation-duration: 1s;
-  /*animation-delay: 3s;*/
-  /*animation-iteration-count: 3;*/
-  animation-timing-function: ease-out;
+  &--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /*animation-delay: 3s;*/
+    /*animation-iteration-count: 3;*/
+    animation-timing-function: ease-out;
 
-}
+  }
 
-.heading-primary--sub {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 1.75rem;
-  animation: moveInRight 1s ease-out;
+  &--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out;
+  }
 }
 
 @keyframes moveInLeft {
@@ -124,8 +129,7 @@ body {
   }
 }
 
-.btn:link,
-.btn:visited {
+%button-default {
   text-transform: uppercase;
   text-decoration: none;
   padding: 1.5rem 4rem;
@@ -136,41 +140,56 @@ body {
   font-size: 1.6rem;
 }
 
-.btn:hover {
-  transform: translateY(-0.3rem);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
-}
+.btn {
+  &:link {
+    @extend %button-default;
+  }
 
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
-}
+  &:visited {
+    @extend %button-default;
+  }
 
-.btn--white {
-  background-color: $color-white;
-  color: $color-grey-dark;
-}
+  &:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
 
-.btn::after {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-  border-radius: 10rem;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: all .4s;
-}
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
 
-.btn--white::after {
-  background-color: $color-white;
-}
+  &:active {
+    transform: translateY(-1px);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+  }
 
-.btn:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0;
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+  }
+
+  &--animated {
+    animation: moveInBottom .5s ease-out .75s;
+    animation-fill-mode: backwards;
+  }
 }
 
 @keyframes moveInBottom {
@@ -185,7 +204,3 @@ body {
   }
 }
 
-.btn--animated {
-  animation: moveInBottom .5s ease-out .75s;
-  animation-fill-mode: backwards;
-}
