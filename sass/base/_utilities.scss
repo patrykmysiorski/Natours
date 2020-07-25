@@ -1,0 +1,13 @@
+.u-center-text {
+  text-align: center;
+}
+
+.u-margin-bottom-8 {
+  margin-bottom: 8rem;
+}
+
+@for $i from 1 through 10 {
+  .u-margin-bottom-#{$i} {
+    margin-bottom: $i * 1rem;
+  }
+}
