@@ -9,6 +9,7 @@
   /*always try to fill the whole space*/
   background-position: top;
   /*    top of image is always on top when you shrink view port*/
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   position: relative;
 
@@ -20,6 +21,11 @@
 
   &__logo {
     height: 3.5rem;
+    transition: all .5s;
+
+    &:hover {
+      transform: rotateZ(360deg);
+    }
   }
 
   &__text-box {
